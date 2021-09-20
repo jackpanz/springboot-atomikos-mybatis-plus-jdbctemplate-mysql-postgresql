@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.5.4</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+	<groupId>com.softfabrique.test</groupId>
+	<artifactId>springboot-atomikos-mybatis-plus-jdbctemplate-mysql-postgresql</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>Multiple databases</name>
+	<description>Demo project for Spring Boot</description>
+
+<!--	<properties>-->
+<!--		<ibeetl.version>3.1.8.RELEASE</ibeetl.version>-->
+<!--		<mybatisplus.version>3.4.3.1</mybatisplus.version>-->
+<!--		<mybatisplus.generator.version>3.4.1</mybatisplus.generator.version>-->
+<!--		<lombok.version>1.18.6</lombok.version>-->
+
+<!--		<com.maccloud.version>3.0.5</com.maccloud.version>-->
+<!--		<inspinia-admin.version>1.0.20</inspinia-admin.version>-->
+<!--	</properties>-->
+
+	<properties>
+		<java.version>1.8</java.version>
+		<ibeetl.version>3.1.8.RELEASE</ibeetl.version>
+		<mybatisplus.version>3.4.3.3</mybatisplus.version>
+		<mybatisplus.generator.version>3.5.0</mybatisplus.generator.version>
+	</properties>
+
+	<dependencies>
+		<!-- spring boot begin -->
+		<dependency><!--核心模块，包括自动配置支持、日志和YAML-->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<dependency><!--引入web模块-->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency><!-- 发布到jboss中冲突 -->
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency><!--分布式事务-->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jta-atomikos</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+		</dependency>
+
+		<dependency><!--引入web模块-->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+		<!-- spring boot end -->
+
+
+
+		<dependency><!-- postgresql驱动包 -->
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.2.23</version>
+		</dependency>
+
+		<!-- mybatis-plus begin -->
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-boot-starter</artifactId>
+			<version>${mybatisplus.version}</version>
+		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.baomidou</groupId>-->
+<!--			<artifactId>mybatis-plus</artifactId>-->
+<!--			<version>${mybatisplus.version}</version>-->
+<!--		</dependency>-->
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-generator</artifactId>
+			<version>${mybatisplus.generator.version}</version>
+		</dependency>
+		<!-- mybatis-plus end -->
+
+		<!-- 数据库 begin -->
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>4.0.3</version>
+		</dependency>
+
+		<dependency><!-- mysql驱动包 -->
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.15</version>
+		</dependency>
+
+		<dependency><!-- sqlserver 驱动包 -->
+			<groupId>net.sourceforge.jtds</groupId>
+			<artifactId>jtds</artifactId>
+			<version>1.3.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+			<version>9.4.0.jre8</version>
+		</dependency>
+
+		<dependency><!-- ibeetl前端模板 -->
+			<groupId>com.ibeetl</groupId>
+			<artifactId>beetl</artifactId>
+			<version>${ibeetl.version}</version>
+		</dependency>
+		<!-- beetl end -->
+
+
+		<!-- 工具包 begin  -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.12</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.9</version>
+		</dependency>
+
+		<dependency><!-- 上传 -->
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>4.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.9.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.jackpanz</groupId>
+			<artifactId>jackpanz-spring-core</artifactId>
+			<version>1.0.14</version>
+		</dependency>
+		<!-- 工具包 end -->
+
+
+
+		<!-- json数据 begin -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.76</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.12.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.12.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.12.3</version>
+		</dependency>
+		<!-- json数据 end -->
+
+	</dependencies>
+
+
+</project>

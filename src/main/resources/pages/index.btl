@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>${APP_ADMIN_NAME!}</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+</head>
+<body>
+
+    普通CRUD<br/>
+    <a href="/db1Table/list">db1Table</a><br/>
+    <a href="/db2Table/list">db2Table</a><br/>
+
+    <br/>JdbcTemplate<br/>
+    <a href="/some">同时插入</a><br/>
+    <a href="/some_exception">同时插入后回滚</a><br/>
+
+    <br/>MybatisPlus<br/>
+    <a href="/insertMybatisPlus">同时插入</a><br/>
+    <a href="/insertMybatisPlusException">同时插入后回滚</a><br/>
+
+    <br/>JdbcTemplate+MybatisPlus<br/>
+    <a href="/insertMix">同时插入</a><br/>
+    <a href="/insertMixException">同时插入后回滚</a><br/>
+
+</body>
+</html>

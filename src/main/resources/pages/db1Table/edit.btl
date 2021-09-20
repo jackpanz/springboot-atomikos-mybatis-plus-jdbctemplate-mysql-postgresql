@@ -1,0 +1,83 @@
+@layout("/templates/cms.btl",{title:'編輯db1Table'}){
+
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">編輯db1Table</div>
+                <div class="layui-card-body" pad15>
+
+                    <form id="ff" lay-filter="ff" class="layui-form" >
+                        <div id="button-layout" class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button type="submit" class="layui-btn" lay-submit lay-filter="sm" >確認</button>
+                                <a href="${ctxPath}/db1Table/list" class="layui-btn layui-btn-primary" >返回</a>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    layui.config({
+        base: '${ctxPath}/layuiadmin/' //靜態資源所在路徑
+    }).extend({
+        formjs: 'lib/formjs'
+    }).use(["formjs"],function () {
+
+        /*
+            inputClass:'layui-input-block'  //整行
+            inputClass:'layui-input-inline' //默认
+         */
+        layui.formjs.render({
+            ff: '#ff',
+            before:'#button-layout',
+            els:[
+                    {type: 'hidden', name: 'id'},
+                    {type: 'text', name: 'title', title: 'title'},
+                    {type: 'text', name: 'create_date', title: 'create_date'},
+                    {type: 'text', name: 'status', title: 'status'},
+            ]
+        });
+
+        $.ajaxObject(
+            "${parameter.id==null?'':ctxPath+'/db1Table/get?id='+parameter.id}",
+            function (db1Table) {
+                if(db1Table){
+                    layui.form.val('ff', db1Table);
+                }
+            }
+        );
+
+        layui.form.render();
+
+
+        layui.form.on('submit(sm)', function(obj){
+            console.log(JSON.stringify(obj.field))
+            $.ajax({
+                url:'${ctxPath}/db1Table/save',
+                type:'post',
+                data:obj.field,
+                dataType:'json',
+                success:function(data){
+                    if(data.action){
+                        msgD('保存成功','${ctxPath}/db1Table/list');
+                    } else {
+                        alertE(data.msg);
+                    }
+                },
+                error:function(e){
+                    alertE('提交失敗！');
+                },
+
+            });
+            return false;
+        });
+
+    });
+</script>
+@}

@@ -1,0 +1,230 @@
+/*
+package generator;
+
+import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.baomidou.mybatisplus.generator.AutoGenerator;
+import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
+import com.baomidou.mybatisplus.generator.config.converts.PostgreSqlTypeConvert;
+import com.baomidou.mybatisplus.generator.config.po.TableInfo;
+import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
+import com.baomidou.mybatisplus.generator.config.rules.IColumnType;
+import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import com.baomidou.mybatisplus.generator.engine.BeetlTemplateEngine;
+import org.apache.commons.lang3.StringUtils;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class PostgresqlGenerator {
+
+    private static final Map<String, String> conf = new HashMap() {
+        {
+
+            //jdbc
+            put("jdbc.driver", "org.postgresql.Driver");
+            put("jdbc.url", "jdbc:postgresql://127.0.0.1:5432/db1");
+            put("jdbc.user", "postgres");
+            put("jdbc.pass", "123456");
+
+            //config
+            put("packageName", "com.example.demo");
+            put("superEntityClass", "com.github.jackpanz.spring.basic.BasicEntity");
+
+            //tables
+            put("tables",
+                    "t_test"
+//                    ",t_admin_user_test" +
+//                            ",t_jobs" +
+//                            "t_test" +
+
+            );
+
+            put("tablePrefix", "t_");
+            put("pagePath", "");
+
+        }
+    };
+
+    public static void main(String[] args) {
+
+        generator();
+
+    }
+
+    public static void generator() {
+        // 代码生成器
+        AutoGenerator mpg = new AutoGenerator();
+
+        // 全局配置
+        GlobalConfig gc = new GlobalConfig();
+        String projectPath = System.getProperty("user.dir");
+        gc.setOutputDir(projectPath + "/generator/java/");
+        gc.setAuthor("jackpan");
+        gc.setFileOverride(true);
+        gc.setActiveRecord(false);// 开启 activeRecord 模式
+        gc.setEnableCache(false);// XML 二级缓存
+        gc.setBaseResultMap(true);// XML ResultMap
+        gc.setBaseColumnList(true);// XML columList
+        gc.setOpen(false);
+        gc.setIdType(IdType.INPUT);
+
+        // gc.setSwagger2(true); 实体属性 Swagger2 注解
+        mpg.setGlobalConfig(gc);
+
+        // 数据源配置
+        DataSourceConfig dsc = new DataSourceConfig();
+        dsc.setUrl(conf.get("jdbc.url"));
+        // dsc.setSchemaName("public");
+        dsc.setDriverName(conf.get("jdbc.driver"));
+        dsc.setUsername(conf.get("jdbc.user"));
+        dsc.setPassword(conf.get("jdbc.pass"));
+        dsc.setDbType(DbType.POSTGRE_SQL);
+
+        dsc.setTypeConvert(new PostgreSqlTypeConvert() {
+            // 自定义数据库表字段类型转换【可选】
+            @Override
+            public IColumnType processTypeConvert(GlobalConfig globalConfig, String fieldType) {
+                System.out.println("转换类型：" + fieldType);
+                if (fieldType.toLowerCase().contains("timestamp")) {
+                    return DbColumnType.DATE;
+                }
+                return super.processTypeConvert(globalConfig, fieldType);
+            }
+        });
+
+        mpg.setDataSource(dsc);
+
+        // 包配置
+        PackageConfig pc = new PackageConfig();
+//        pc.setModuleName( conf.get("packageName") );
+        pc.setParent(conf.get("packageName"));
+        mpg.setPackageInfo(pc);
+
+        final Map cfgMap = new HashMap<String, Object>() {{
+            String pagePath =conf.get("pagePath");
+            if (StringUtils.isNotBlank(pagePath)) {
+                if (!pagePath.startsWith("/")) {
+                    pagePath = "/" + pagePath;
+                }
+                if (pagePath.endsWith("/")) {
+                    pagePath = pagePath.substring(0, pagePath.length() - 1);
+                }
+                conf.put("pagePath", pagePath);
+            }
+
+            put("pagePath", conf.get("pagePath"));
+        }};
+
+        // 自定义配置
+        InjectionConfig cfg = new InjectionConfig() {
+            @Override
+            public void initMap() {
+                // to do nothing
+                setMap(cfgMap);
+            }
+        };
+
+        String mapperTemplate = "/plus/mapper.xml.btl";
+        String entityTemplate = "/plus/entity.java.btl";
+
+        // 自定义输出配置
+        List<FileOutConfig> focList = new ArrayList<>();
+        // 自定义配置会被优先输出
+        focList.add(new FileOutConfig(mapperTemplate) {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                String objectName = tableInfo.getEntityName().substring(0, 1).toLowerCase() + tableInfo.getEntityName().substring(1);
+                cfgMap.put("entityName", objectName);
+                cfgMap.put("titleName", StringUtils.isBlank(tableInfo.getComment()) ? objectName : tableInfo.getComment().trim());
+
+                String packageName = conf.get("packageName") + ".mapper";
+                packageName = packageName.replaceAll("\\.", "/");
+                String filePath = projectPath + "/generator/mapper/" + packageName + "/" + tableInfo.getEntityName() + "Mapper.xml";
+                return filePath;
+            }
+        });
+        focList.add(new FileOutConfig(entityTemplate) {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                String objectName = tableInfo.getEntityName().substring(0, 1).toLowerCase() + tableInfo.getEntityName().substring(1);
+                String sequence_name = "seq_" + tableInfo.getName().replaceFirst(conf.get("tablePrefix"), "");
+                cfgMap.put("entityName", objectName);
+                cfgMap.put("titleName", StringUtils.isBlank(tableInfo.getComment()) ? objectName : tableInfo.getComment().trim());
+                cfgMap.put("sequence_name", sequence_name);
+                cfgMap.put("sequenceName", StringUtils.isBlank(tableInfo.getComment()) ? objectName : tableInfo.getComment().trim());
+
+                String packageName = conf.get("packageName") + ".entity";
+                packageName = packageName.replaceAll("\\.", "/");
+                String filePath = projectPath + "/generator/java/" + packageName + "/" + tableInfo.getEntityName() + ".java";
+                return filePath;
+            }
+        });
+        focList.add(new FileOutConfig("/layui/edit.btl") {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                String objectName = tableInfo.getEntityName().substring(0, 1).toLowerCase() + tableInfo.getEntityName().substring(1);
+                cfgMap.put("entityName", objectName);
+                cfgMap.put("titleName", StringUtils.isBlank(tableInfo.getComment()) ? objectName : tableInfo.getComment().trim());
+                String filePath = projectPath + "/generator/pages" + conf.get("pagePath") + "/" + objectName + "/edit.btl";
+                File file = new File(filePath);
+//                System.out.println("========" + projectRoot+"/"+tableInfo.getName());
+                return file.getPath();
+            }
+        });
+        focList.add(new FileOutConfig("/layui/list.btl") {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                String objectName = tableInfo.getEntityName().substring(0, 1).toLowerCase() + tableInfo.getEntityName().substring(1);
+                cfgMap.put("entityName", objectName);
+                cfgMap.put("titleName", StringUtils.isBlank(tableInfo.getComment()) ? objectName : tableInfo.getComment().trim());
+                String filePath = projectPath + "/generator/pages" + conf.get("pagePath") + "/" + objectName + "/list.btl";
+                File file = new File(filePath);
+//                System.out.println("========" + projectRoot+"/"+tableInfo.getName());
+                return file.getPath();
+            }
+        });
+
+
+
+        cfg.setFileOutConfigList(focList);
+        mpg.setCfg(cfg);
+
+        // 配置模板
+        TemplateConfig templateConfig = new TemplateConfig()
+                .setController("/plus/controller")
+                .setServiceImpl("/plus/serviceImpl")
+                .setMapper("/plus/mapper.java")
+                .setEntity(null)
+                .setService(null)
+                .setXml(null);
+
+        mpg.setTemplate(templateConfig);
+
+        // 策略配置
+        StrategyConfig strategy = new StrategyConfig();
+        strategy.setNaming(NamingStrategy.underline_to_camel);
+        strategy.setColumnNaming(NamingStrategy.no_change);
+        strategy.setSuperEntityClass(conf.get("superEntityClass"));
+        strategy.setEntityLombokModel(true);
+        strategy.setRestControllerStyle(true);
+
+        strategy.setInclude(conf.get("tables"));
+        strategy.setTablePrefix(StringUtils.split(conf.get("tablePrefix"), ","));// 此处可以修改为您的表前缀
+        strategy.setControllerMappingHyphenStyle(true);
+//        strategy.setTablePrefix(pc.getModuleName() + "_");
+        mpg.setStrategy(strategy);
+        mpg.setTemplateEngine(new BeetlTemplateEngine());
+        mpg.execute();
+    }
+
+
+}
+
+
+*/

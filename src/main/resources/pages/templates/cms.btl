@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>${title!APP_ADMIN_NAME!}</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="${ctxPath}/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="${ctxPath}/layuiadmin/style/admin.css" media="all">
+
+    <script charset="UTF-8" src="${ctxPath}/js/jquery-3.5.1.min.js"></script>
+    <script charset="UTF-8" src="${ctxPath}/layuiadmin/layui/layui.js"></script>
+    <script charset="UTF-8" src="${ctxPath}/js/common.js"></script>
+    <script charset="UTF-8" src="${ctxPath}/js/layui-util.js"></script>
+    <script charset="UTF-8" src="${ctxPath}/js/md5_encrypt.js"></script>
+
+    <style>
+        .layui-form-label{
+            width: 120px;
+        }
+        .layui-input-block{
+            margin-left: 150px;
+        }
+    </style>
+</head>
+<body>
+${layoutContent}
+</body>
+</html>
