@@ -51,7 +51,7 @@ public class MybatisPlusGenerator {
             put("controllerTemp", "/plus/controller");
             put("serviceImplTemp", "/plus/serviceImpl");
             put("mapperTemp", "/plus/mapper.java");
-            put("entityTemp", "/plus/entity.java");
+            put("entityTemp", "/templates/entity.java");
             put("xmlTemp", "/plus/mapper.xml.btl");
 
             put("editTemp", "/layui/edit.btl");
