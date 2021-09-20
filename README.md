@@ -5,3 +5,4 @@
 - postgresql 13
 - atomikos
 - 一个 mysql数据库，一个postgresql数据库，混合mybatis-plus jdbctemplate操作数据库，最后事务同步提交，或者同步回滚
+- 尽量用默认的maven下载
