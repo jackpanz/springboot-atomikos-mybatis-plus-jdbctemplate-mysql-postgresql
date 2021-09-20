@@ -134,15 +134,9 @@ public class MysqlGenerator {
         // 自定义需要填充的字段
         final String projectRoot = System.getProperty("user.dir");
 
-        HikariDataSource hikariDataSource = new HikariDataSource();
-        hikariDataSource.setJdbcUrl(conf.get("jdbc.url"));
-        hikariDataSource.setUsername(conf.get("jdbc.user"));
-        hikariDataSource.setPassword(conf.get("jdbc.pass"));
-        hikariDataSource.setDriverClassName(conf.get("jdbc.driver"));
-
         String finalPagePath = pagePath;
         AutoGenerator mpg = new AutoGenerator(
-                new DataSourceConfig.Builder(hikariDataSource)
+                new DataSourceConfig.Builder(conf.get("jdbc.url"),conf.get("jdbc.user"),conf.get("jdbc.pass"))
                         .typeConvert(mySqlTypeConvert)
                         .build()
         ).global(
