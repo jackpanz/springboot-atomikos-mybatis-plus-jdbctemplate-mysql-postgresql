@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.softfabrique.test.mapper.atomikos.mysql.MysqlTableAtomikosMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.softfabrique.test.entity.mysql.MysqlTable">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="age" property="age" />
+        <result column="create_date" property="create_date" />
+    </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, age, create_date
+    </sql>
+
+
+    <sql id="Base_Alias_Column_List">
+        mysqlTable.id as mysqlTable_id,mysqlTable.name as mysqlTable_name,mysqlTable.age as mysqlTable_age,mysqlTable.create_date as mysqlTable_create_date
+    </sql>
+
+    <resultMap id="selectSimpleResultMap" type="java.util.HashMap">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <association  property="mysqlTable" columnPrefix="mysqlTable_"
+                      resultMap="com.softfabrique.test.mapper.atomikos.mysql.MysqlTableAtomikosMapper.BaseResultMap"/>
+    </resultMap>
+
+    <select id="selectSimple" resultMap="com.softfabrique.test.mapper.atomikos.mysql.MysqlTableAtomikosMapper.BaseResultMap" >
+        select <include refid="com.softfabrique.test.mapper.atomikos.mysql.MysqlTableAtomikosMapper.Base_Column_List"/> from t_mysql_table
+    </select>
+
+    <select id="selectMapSimple" resultMap="com.softfabrique.test.mapper.atomikos.mysql.MysqlTableAtomikosMapper.selectSimpleResultMap" >
+        select <include refid="com.softfabrique.test.mapper.atomikos.mysql.MysqlTableAtomikosMapper.Base_Alias_Column_List"/> from t_mysql_table as mysqlTable
+    </select>
+
+</mapper>

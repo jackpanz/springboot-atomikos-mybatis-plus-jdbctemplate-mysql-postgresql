@@ -48,6 +48,9 @@ public class MybatisPlusGenerator {
             put("xml", "mapper");
             put("serviceImpl", "service.impl");
 
+            put("mapperFileName", "%sMapper");
+            put("xmlFileName", "%sMapper");
+
             put("controllerTemp", "/plus/controller");
             put("serviceImplTemp", "/plus/serviceImpl");
             put("mapperTemp", "/plus/mapper.java");
@@ -97,7 +100,7 @@ public class MybatisPlusGenerator {
         };
     }
 
-    public static void generator(Map<String, String> conf,ITypeConvert typeConvert) {
+    public static void generator(Map<String, String> conf, ITypeConvert typeConvert) {
 
         String pagePath = conf.get("pagePath");
         if (StringUtils.isNotBlank(pagePath)) {
@@ -137,7 +140,7 @@ public class MybatisPlusGenerator {
                         .serviceBuilder()
                         .formatServiceImplFileName("%sServiceImpl")
                         .build()
-                        .mapperBuilder()
+                        .mapperBuilder().formatMapperFileName(conf.get("mapperFileName"))
                         .enableBaseResultMap()
                         .enableBaseColumnList()
                         .build()
@@ -178,7 +181,13 @@ public class MybatisPlusGenerator {
 
                     String packageName = conf.get("packageName") + "." + conf.get("xml");
                     packageName = packageName.replaceAll("\\.", "/");
-                    filePath = projectRoot + "/generator/mapper/" + packageName + "/" + tableInfo.getEntityName() + "Mapper.xml";
+
+
+
+                    String xmlFileName = conf.get("xmlFileName");
+                    String xmlName = String.format(xmlFileName,tableInfo.getEntityName());
+
+                    filePath = projectRoot + "/generator/mapper/" + packageName + "/" + xmlName + "Mapper.xml";
                     buildFile(conf.get("xmlTemp"), new File(filePath), stringObjectMap);
 
                 })

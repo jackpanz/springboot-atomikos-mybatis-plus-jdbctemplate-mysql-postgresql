@@ -11,21 +11,20 @@
 </head>
 <body>
 
-    普通CRUD<br/>
-    <a href="/db1Table/list">db1Table</a><br/>
-    <a href="/db2Table/list">db2Table</a><br/>
+    单数据操作<br/>
+    <a href="/saveStandAlone">添加</a><br/>
+    <a href="/saveStandAloneEx">添加异常</a><br/>
 
-    <br/>JdbcTemplate<br/>
-    <a href="/some">同时插入</a><br/>
-    <a href="/some_exception">同时插入后回滚</a><br/>
+    <br/>多数据库事务同步<br/>
+    <a href="/saveAtomikos">同时插入</a><br/>
+    <a href="/saveAtomikosEx">同时插入后回滚</a><br/>
 
-    <br/>MybatisPlus<br/>
-    <a href="/insertMybatisPlus">同时插入</a><br/>
-    <a href="/insertMybatisPlusException">同时插入后回滚</a><br/>
-
-    <br/>JdbcTemplate+MybatisPlus<br/>
-    <a href="/insertMix">同时插入</a><br/>
-    <a href="/insertMixException">同时插入后回滚</a><br/>
+    <br/>JdbcTemplate MybatisPlus 混用<br/>
+    <a href="/saveMix0">同时插入</a><br/>
+    <a href="/saveMix0Ex">同时插入后回滚</a><br/>
+    <br/>
+    <a href="/saveMix1">同时插入</a><br/>
+    <a href="/saveMix1Ex">同时插入后回滚</a><br/>
 
 </body>
 </html>
