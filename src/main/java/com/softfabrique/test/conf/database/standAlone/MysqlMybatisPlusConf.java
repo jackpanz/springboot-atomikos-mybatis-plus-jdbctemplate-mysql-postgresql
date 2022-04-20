@@ -20,9 +20,6 @@ import javax.sql.DataSource;
 @MapperScan(basePackages = {"com.softfabrique.test.mapper.standAlone.mysql"}, sqlSessionTemplateRef = "mysqlSessionTemplate")
 public class MysqlMybatisPlusConf {
 
-    @Autowired
-    MybatisPlusProperties properties;
-
     @Bean(name = "mysqlSessionFactory")
     public SqlSessionFactory mysqlSessionFactory(@Qualifier("mysqlDataSource") DataSource mysqlDataSource)
             throws Exception {

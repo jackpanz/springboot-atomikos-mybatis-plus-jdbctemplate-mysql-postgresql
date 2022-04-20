@@ -32,112 +32,84 @@ public class TestServiceImpl {
     @Resource(name = "mmsqlAtomikosTemplate")
     JdbcTemplate mmsqlAtomikosTemplate;
 
-    @Transactional("atomikosTransaction")
-    public void saveMix1() {
-        mysqlAtomikosTemplate.update("insert into t_mysql_table (name,age,create_date) values (?,?,?)"
-                , new Object[]{
-                        "Mix_JdbcTemplate_Mybatis", 1, new Date()
-                }, new int[]{
-                        Types.NVARCHAR, Types.INTEGER, Types.DATE
-                });
+    public void saveMmsqlTableObject(String name){
         MmsqlTable mmsqlTable = new MmsqlTable();
-        mmsqlTable.setName("Mix_JdbcTemplate_Mybatis");
+        mmsqlTable.setName(name);
         mmsqlTable.setAge(1);
         mmsqlTable.setCreate_date(new Timestamp(new Date().getTime()));
         mmsqlTableAtomikosServiceImpl.save(mmsqlTable);
+    }
+
+    public void saveMysqlTableObject(String name){
+        MysqlTable mysqlTable = new MysqlTable();
+        mysqlTable.setName(name);
+        mysqlTable.setAge(1);
+        mysqlTable.setCreate_date(new Date());
+        mysqlTableAtomikosServiceImpl.save(mysqlTable);
+    }
+
+    public void saveMysqlTable(String name){
+        mysqlAtomikosTemplate.update("insert into t_mysql_table (name,age,create_date) values (?,?,?)"
+                , new Object[]{
+                        name, 1, new Date()
+                }, new int[]{
+                        Types.NVARCHAR, Types.INTEGER, Types.DATE
+                });
+    }
+
+    public void saveMmsqlTable(String name){
+        mmsqlAtomikosTemplate
+                .update("insert into t_mmsql_table (name,age,create_date) values (?,?,?)"
+                        , new Object[]{
+                                name, 1, new Date()
+                        }, new int[]{
+                                Types.NVARCHAR, Types.INTEGER, Types.DATE
+                        });
+    }
+
+    @Transactional("atomikosTransaction")
+    public void saveMix1() {
+        saveMysqlTable("Mix_JdbcTemplate_Mybatis");
+        saveMmsqlTableObject("Mix_JdbcTemplate_Mybatis");
     }
 
     @Transactional("atomikosTransaction")
     public void saveMix1Ex() {
-        mysqlAtomikosTemplate.update("insert into t_mysql_table (name,age,create_date) values (?,?,?)"
-                , new Object[]{
-                        "Mix_JdbcTemplate_Mybatis", 1, new Date()
-                }, new int[]{
-                        Types.NVARCHAR, Types.INTEGER, Types.DATE
-                });
+        saveMysqlTable("Mix_JdbcTemplate_Mybatis_Ex");
         if (true) {
             throw new MException("异常");
         }
-        MmsqlTable mmsqlTable = new MmsqlTable();
-        mmsqlTable.setName("Mix_JdbcTemplate_Mybatis");
-        mmsqlTable.setAge(1);
-        mmsqlTable.setCreate_date(new Timestamp(new Date().getTime()));
-        mmsqlTableAtomikosServiceImpl.save(mmsqlTable);
-
+        saveMmsqlTableObject("Mix_JdbcTemplate_Mybatis_Ex");
     }
 
     @Transactional("atomikosTransaction")
     public void saveMix0() {
-        MysqlTable mysqlTable = new MysqlTable();
-        mysqlTable.setName("Mix_Mybatis_JdbcTemplate");
-        mysqlTable.setAge(1);
-        mysqlTable.setCreate_date(new Date());
-        mysqlTableAtomikosServiceImpl.save(mysqlTable);
-        mmsqlAtomikosTemplate
-                .update("insert into t_mmsql_table (name,age,create_date) values (?,?,?)"
-                        , new Object[]{
-                                "Mix_Mybatis_JdbcTemplate", 1, new Date()
-                        }, new int[]{
-                                Types.NVARCHAR, Types.INTEGER, Types.DATE
-                        });
+        saveMysqlTableObject("Mix_Mybatis_JdbcTemplate");
+        saveMmsqlTable("Mix_Mybatis_JdbcTemplate");
     }
 
     @Transactional("atomikosTransaction")
     public void saveMix0Ex() {
-        MysqlTable mysqlTable = new MysqlTable();
-        mysqlTable.setName("Mix_Mybatis_JdbcTemplate_Ex");
-        mysqlTable.setAge(1);
-        mysqlTable.setCreate_date(new Date());
-        mysqlTableAtomikosServiceImpl.save(mysqlTable);
-        mmsqlAtomikosTemplate
-                .update("insert into t_mmsql_table (name,age,create_date) values (?,?,?)"
-                        , new Object[]{
-                                "Mix_Mybatis_JdbcTemplate_Ex", 1, new Date()
-                        }, new int[]{
-                                Types.NVARCHAR, Types.INTEGER, Types.DATE
-                        });
+        saveMysqlTableObject("Mix_Mybatis_JdbcTemplate_Ex");
+        saveMmsqlTable("Mix_Mybatis_JdbcTemplate_Ex");
         if (true) {
             throw new MException("异常");
         }
     }
 
-
     @Transactional("atomikosTransaction")
     public void saveAtomikos() {
-
-        MysqlTable mysqlTable = new MysqlTable();
-        mysqlTable.setName("Atomikos");
-        mysqlTable.setAge(1);
-        mysqlTable.setCreate_date(new Date());
-        mysqlTableAtomikosServiceImpl.save(mysqlTable);
-
-        MmsqlTable mmsqlTable = new MmsqlTable();
-        mmsqlTable.setName("Atomikos");
-        mmsqlTable.setAge(1);
-        mmsqlTable.setCreate_date(new Timestamp(new Date().getTime()));
-        mmsqlTableAtomikosServiceImpl.save(mmsqlTable);
-
+        saveMysqlTableObject("Atomikos");
+        saveMmsqlTableObject("Atomikos");
     }
 
     @Transactional("atomikosTransaction")
     public void saveAtomikosEx() {
-
-        MysqlTable mysqlTable = new MysqlTable();
-        mysqlTable.setName("AtomikosEx");
-        mysqlTable.setAge(1);
-        mysqlTable.setCreate_date(new Date());
-        mysqlTableAtomikosServiceImpl.save(mysqlTable);
-
+        saveMysqlTableObject("AtomikosEx");
         if (true) {
             throw new MException("异常");
         }
-
-        MmsqlTable mmsqlTable = new MmsqlTable();
-        mmsqlTable.setName("AtomikosEx");
-        mmsqlTable.setAge(1);
-        mmsqlTable.setCreate_date(new Date());
-        mmsqlTableAtomikosServiceImpl.save(mmsqlTable);
-
+        saveMmsqlTableObject("AtomikosEx");
     }
 
 }

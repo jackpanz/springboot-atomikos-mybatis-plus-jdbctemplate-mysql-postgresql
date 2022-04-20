@@ -20,10 +20,6 @@ import javax.sql.DataSource;
 @MapperScan(basePackages = {"com.softfabrique.test.mapper.atomikos.mysql"}, sqlSessionTemplateRef = "mysqlAtomikosSessionTemplate")
 public class MySqlAtomikosMybatisPlusConf {
 
-
-    @Autowired
-    MybatisPlusProperties properties;
-
     @Bean(name = "mysqlAtomikosSessionFactory")
     public SqlSessionFactory mysqlAtomikosSessionFactory(@Qualifier("mysqlAtomikosDataSource") DataSource mysqlAtomikosDataSource)
             throws Exception {
