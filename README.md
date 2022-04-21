@@ -6,5 +6,6 @@
 - sqlserver 2016
 - atomikos
 - 整合单数据库事务、多数据库事务。
-<br/>
+-
+
 ![image](https://github.com/jackpanz/springboot-atomikos-mybatis-plus-jdbctemplate-mysql-postgresql/blob/master/doc/1.png?raw=true)
