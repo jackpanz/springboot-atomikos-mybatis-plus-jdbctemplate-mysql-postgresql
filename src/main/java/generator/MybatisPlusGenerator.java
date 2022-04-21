@@ -154,12 +154,14 @@ public class MybatisPlusGenerator {
                         .build()
 
         ).template(new TemplateConfig.Builder()
-                .controller(conf.get("controllerTemp"))
-                .service(null, conf.get("serviceImplTemp"))
-                .mapper(conf.get("mapperTemp"))
-                .mapperXml(null)
-                .entity(conf.get("entityTemp"))
-                .build()
+                        .controller(conf.get("controllerTemp"))
+//                .service(null, conf.get("serviceImplTemp"))
+                        .service(null)
+                        .serviceImpl(conf.get("serviceImplTemp"))
+                        .mapper(conf.get("mapperTemp"))
+                        .mapperXml(null)
+                        .entity(conf.get("entityTemp"))
+                        .build()
         ).injection(new InjectionConfig.Builder()
                 .beforeOutputFile((tableInfo, stringObjectMap) -> {
 
@@ -183,9 +185,8 @@ public class MybatisPlusGenerator {
                     packageName = packageName.replaceAll("\\.", "/");
 
 
-
                     String xmlFileName = conf.get("xmlFileName");
-                    String xmlName = String.format(xmlFileName,tableInfo.getEntityName());
+                    String xmlName = String.format(xmlFileName, tableInfo.getEntityName());
 
                     filePath = projectRoot + "/generator/mapper/" + packageName + "/" + xmlName + "Mapper.xml";
                     buildFile(conf.get("xmlTemp"), new File(filePath), stringObjectMap);

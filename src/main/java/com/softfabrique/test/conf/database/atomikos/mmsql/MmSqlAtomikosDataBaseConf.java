@@ -1,7 +1,6 @@
 package com.softfabrique.test.conf.database.atomikos.mmsql;
 
 import com.atomikos.jdbc.AtomikosDataSourceBean;
-import com.microsoft.sqlserver.jdbc.SQLServerXADataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;

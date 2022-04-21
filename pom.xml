@@ -31,7 +31,7 @@
 		<java.version>1.8</java.version>
 		<ibeetl.version>3.1.8.RELEASE</ibeetl.version>
 		<mybatisplus.version>3.4.3.3</mybatisplus.version>
-		<mybatisplus.generator.version>3.5.0</mybatisplus.generator.version>
+		<mybatisplus.generator.version>3.5.1</mybatisplus.generator.version>
 	</properties>
 
 	<dependencies>
@@ -63,12 +63,16 @@
 		</dependency>
 		<!-- spring boot end -->
 
-
+<!--		<dependency>&lt;!&ndash; postgresql驱动包 &ndash;&gt;-->
+<!--			<groupId>org.postgresql</groupId>-->
+<!--			<artifactId>postgresql</artifactId>-->
+<!--			<version>42.2.23</version>-->
+<!--		</dependency>-->
 
 		<dependency><!-- postgresql驱动包 -->
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>42.2.23</version>
+			<version>42.3.4</version>
 		</dependency>
 
 		<!-- mybatis-plus begin -->

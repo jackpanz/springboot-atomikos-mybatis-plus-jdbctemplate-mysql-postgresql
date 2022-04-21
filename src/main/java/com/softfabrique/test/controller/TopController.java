@@ -1,7 +1,7 @@
 package com.softfabrique.test.controller;
 
 import com.github.jackpanz.spring.util.ResultMap;
-import com.softfabrique.test.service.atomikos.test.impl.TestServiceImpl;
+import com.softfabrique.test.service.atomikos.jta.impl.JtaServiceImpl;
 import com.softfabrique.test.service.standAlone.mysql.impl.MysqlTableServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +17,7 @@ public class TopController {
     MysqlTableServiceImpl mysqlTableService;
 
     @Autowired
-    TestServiceImpl testServiceImpl;
+    JtaServiceImpl jtaService;
 
     @ResponseBody
     @RequestMapping(value = "saveStandAlone")
@@ -39,7 +39,7 @@ public class TopController {
     @RequestMapping(value = "saveAtomikos")
     public Map saveAtomikos() {
         ResultMap result = new ResultMap(true);
-        testServiceImpl.saveAtomikos();
+        jtaService.saveAtomikos();
         return result;
     }
 
@@ -47,7 +47,7 @@ public class TopController {
     @RequestMapping(value = "saveAtomikosEx")
     public Map saveAtomikosEx() {
         ResultMap result = new ResultMap(true);
-        testServiceImpl.saveAtomikosEx();
+        jtaService.saveAtomikosEx();
         return result;
     }
 
@@ -55,7 +55,7 @@ public class TopController {
     @RequestMapping(value = "saveMix0")
     public Map saveMix0() {
         ResultMap result = new ResultMap(true);
-        testServiceImpl.saveMix0();
+        jtaService.saveMix0();
         return result;
     }
 
@@ -63,7 +63,7 @@ public class TopController {
     @RequestMapping(value = "saveMix0Ex")
     public Map saveMix0Ex() {
         ResultMap result = new ResultMap(true);
-        testServiceImpl.saveMix0Ex();
+        jtaService.saveMix0Ex();
         return result;
     }
 
@@ -71,7 +71,7 @@ public class TopController {
     @RequestMapping(value = "saveMix1")
     public Map saveMix1() {
         ResultMap result = new ResultMap(true);
-        testServiceImpl.saveMix1();
+        jtaService.saveMix1();
         return result;
     }
 
@@ -79,7 +79,7 @@ public class TopController {
     @RequestMapping(value = "saveMix1Ex")
     public Map saveMix1Ex() {
         ResultMap result = new ResultMap(true);
-        testServiceImpl.saveMix1Ex();
+        jtaService.saveMix1Ex();
         return result;
     }
 
