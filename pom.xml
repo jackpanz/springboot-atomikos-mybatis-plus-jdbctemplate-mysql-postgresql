@@ -31,7 +31,7 @@
 		<java.version>1.8</java.version>
 		<ibeetl.version>3.1.8.RELEASE</ibeetl.version>
 		<mybatisplus.version>3.4.3.3</mybatisplus.version>
-		<mybatisplus.generator.version>3.5.1</mybatisplus.generator.version>
+		<mybatisplus.generator.version>3.5.2</mybatisplus.generator.version>
 	</properties>
 
 	<dependencies>
@@ -173,7 +173,7 @@
 		<dependency>
 			<groupId>com.github.jackpanz</groupId>
 			<artifactId>jackpanz-spring-core</artifactId>
-			<version>1.0.14</version>
+			<version>1.0.22</version>
 		</dependency>
 		<!-- 工具包 end -->
 

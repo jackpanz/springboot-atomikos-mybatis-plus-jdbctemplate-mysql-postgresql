@@ -16,7 +16,7 @@ public class PostgresqlGenerator {
 
         DEF_CONF.put("packageName", "com.softfabrique.test");
         DEF_CONF.put("superEntityClass", "com.github.jackpanz.spring.basic.BasicEntity");
-        DEF_CONF.put("entityTemp", "/plus/3.5.0/postgresql/entity.java");
+        DEF_CONF.put("entityTemp", "/plus/3.5.2/postgrasql/entity.java");
         DEF_CONF.put("pagePath", "");
 
         DEF_CONF.put("jdbc.driver", "org.postgresql.Driver");

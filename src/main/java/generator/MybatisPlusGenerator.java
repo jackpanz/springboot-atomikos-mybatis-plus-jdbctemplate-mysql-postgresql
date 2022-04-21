@@ -94,6 +94,8 @@ public class MybatisPlusGenerator {
                 System.out.println("转换类型：" + fieldType);
                 if (fieldType.toLowerCase().contains("timestamp")) {
                     return DbColumnType.DATE;
+                } else if (fieldType.toLowerCase().contains("date")) {
+                    return DbColumnType.DATE;
                 }
                 return super.processTypeConvert(globalConfig, fieldType);
             }
@@ -159,7 +161,7 @@ public class MybatisPlusGenerator {
                         .service(null)
                         .serviceImpl(conf.get("serviceImplTemp"))
                         .mapper(conf.get("mapperTemp"))
-                        .mapperXml(null)
+                        .xml(null)
                         .entity(conf.get("entityTemp"))
                         .build()
         ).injection(new InjectionConfig.Builder()
