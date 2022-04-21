@@ -1,4 +1,4 @@
-# 整合spring atomikos实现分布式事务和单数据库事务,mysql postgresql sqlserver
+# 整合spring atomikos MybatisPlus实现分布式事务和单数据库事务(mysql postgresql sqlserver)
 - spring boot 2.5.4
 - mybatis-plus 3.4.3.3
 - mysql 5.7
